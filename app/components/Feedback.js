@@ -1,0 +1,65 @@
+// @flow
+
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+
+class Feedback extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={styles.leftView}>
+                    <Text style={styles.leftText}>Feedback page</Text>
+                </View>
+            </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(5, 122, 34,1)'
+    },
+    leftView: {
+        flex: 1,
+        marginTop: 15,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    leftText: {
+        fontSize: 12,
+        fontFamily: 'Avenir-Roman',
+        color: 'white'
+    },
+    middleView: {
+        flex: 1,
+        marginTop: 15,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    rightView: {
+        flex: 1,
+        marginTop: 15,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    rightText: {
+        fontSize: 12,
+        fontFamily: 'Avenir-Roman',
+        color: 'white'
+    },
+    titleText: {
+        fontSize: 18,
+        color: 'white',
+        fontFamily: 'Avenir-Heavy'
+    }
+});
+
+export default Feedback;
