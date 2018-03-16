@@ -8,12 +8,32 @@ class Feedback extends Component {
         super(props);
     }
 
+    submit() {
+        console.log('Submit clicked.. fetching data');
+
+        fetch('http://127.0.0.1:8086/listUsers')
+            .then(response => {
+                if (response.status != 200) {
+                    console.log('resposnse: ', response);
+                }
+                return response.json();
+            })
+            .then(responseJson => {
+                console.log('responseJSON: ', responseJson);
+                console.log('His name is: ', responseJson.name);
+                console.log('his password is: ', responseJson.password);
+            })
+            .catch(error => {
+                console.log('error: ', error);
+            });
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.leftView}>
-                    <Text style={styles.leftText}>Feedback page</Text>
-                </View>
+                <TouchableOpacity onPress={() => this.submit()} style={styles.submit}>
+                    <Text style={styles.submitText}>Submit</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -24,38 +44,18 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    submit: {
+        //flex: 1,
+        height: 60,
+        width: 150,
+        borderRadius: 6,
+        alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(5, 122, 34,1)'
+        backgroundColor: 'blue'
     },
-    leftView: {
-        flex: 1,
-        marginTop: 15,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    leftText: {
-        fontSize: 12,
-        fontFamily: 'Avenir-Roman',
-        color: 'white'
-    },
-    middleView: {
-        flex: 1,
-        marginTop: 15,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    rightView: {
-        flex: 1,
-        marginTop: 15,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    rightText: {
-        fontSize: 12,
-        fontFamily: 'Avenir-Roman',
-        color: 'white'
-    },
-    titleText: {
+    submitText: {
         fontSize: 18,
         color: 'white',
         fontFamily: 'Avenir-Heavy'

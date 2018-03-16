@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 import { Icon } from 'react-native-elements';
 
-class LogoHeader extends Component {
+class Toolbar extends Component {
     constructor(props) {
         super(props);
     }
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     },
     leftView: {
         flex: 1,
-        marginTop: 15,
-        marginRight: 5,
+        marginTop: 10,
+        marginRight: 15,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -49,14 +49,14 @@ const styles = StyleSheet.create({
     },
     middleView: {
         flex: 1,
-        marginTop: 15,
+        marginTop: 10,
         alignItems: 'center',
         justifyContent: 'center'
     },
     rightView: {
         flex: 1,
-        marginTop: 15,
-        marginLeft: 5,
+        marginTop: 10,
+        marginLeft: 15,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LogoHeader;
+export default Toolbar;

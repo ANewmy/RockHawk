@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 //Import actions
-import { updateUtils } from '../actions/utils';
+import { updateUtils } from '../actions/location';
 import { tabClicked } from '../actions/toolbar';
 
 //import components
@@ -17,6 +17,7 @@ import Toolbar from '../components/Toolbar';
 
 //Import Tabs
 import Home from '../components/Home';
+import MapHeader from '../components/MapHeader';
 import Map from '../components/Map';
 import Feedback from '../components/Feedback';
 import Donations from '../components/Donations';
@@ -32,20 +33,35 @@ const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 class HomeScreen extends Component {
     static propTypes = {
         navigation: PropTypes.object,
-        tab: PropTypes.string
+        tab: PropTypes.string,
+        coords: PropTypes.object,
+        deltas: PropTypes.object,
+        hotSpotClicked: PropTypes.bool,
+        trailsClicked: PropTypes.bool,
+        activitiesClicked: PropTypes.bool,
+        facilitiesClicked: PropTypes.bool
     };
 
     constructor(props) {
         super(props);
-        this.state = {
-            scrollY: new Animated.Value(0)
-        };
     }
 
     componentDidMount() {}
 
-    updateMessage() {
-        this.props.updateUtils({ title: 'hey' });
+    renderHeader() {
+        if (this.props.tab == 'Map') {
+            return (
+                <MapHeader
+                    navigation={this.props.navigation}
+                    hotSpotClicked={this.props.hotSpotClicked}
+                    trailsClicked={this.props.trailsClicked}
+                    activitiesClicked={this.props.activitiesClicked}
+                    facilitiesClicked={this.props.facilitiesClicked}
+                />
+            );
+        } else {
+            return <LogoHeader />;
+        }
     }
 
     renderTab() {
@@ -54,7 +70,7 @@ class HomeScreen extends Component {
                 return <Home />;
                 break;
             case 'Map':
-                return <Map />;
+                return <Map coords={this.props.coords} deltas={this.props.deltas} />;
                 break;
             case 'Feedback':
                 return <Feedback />;
@@ -62,7 +78,6 @@ class HomeScreen extends Component {
             case 'Donations':
                 return <Donations />;
                 break;
-
             default:
                 return null;
                 break;
@@ -70,126 +85,51 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const headerTranslate = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, -HEADER_SCROLL_DISTANCE],
-            extrapolate: 'clamp'
-        });
-        const scrollTranslate = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, -(HEADER_MIN_HEIGHT + NAV_HEIGHT + 20)],
-            extrapolate: 'clamp'
-        });
-
-        const navTranslate = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, -(HEADER_SCROLL_DISTANCE + HEADER_MIN_HEIGHT)],
-            extrapolate: 'clamp'
-        });
-
-        const CONTENT_HEIGHT = HEADER_SCROLL_DISTANCE + HEADER_MIN_HEIGHT + NAV_HEIGHT;
-
-        const contentTranslate = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, -(NAV_HEIGHT - 10)],
-            extrapolate: 'clamp'
-        });
-
-        const headerOpacity = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE / 3, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-            outputRange: [1, 0.75, 0.25, 0],
-            extrapolate: 'clamp'
-        });
-
-        const imageTranslate = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, 100],
-            extrapolate: 'clamp'
-        });
-
-        const titleTranslate = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, 0, -8],
-            extrapolate: 'clamp'
-        });
-
         return (
-            <View style={styles.fill}>
-                <Animated.ScrollView
-                    style={[styles.scrollView, { transform: [{ translateY: scrollTranslate }] }]}
-                    scrollEventThrottle={1}
-                    onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }], {
-                        useNativeDriver: true
-                    })}
-                >
-                    {this.renderTab()}
-                </Animated.ScrollView>
-
-                <Animated.View
-                    style={[styles.header, { opacity: headerOpacity, transform: [{ translateY: headerTranslate }] }]}
-                >
-                    <LogoHeader opacity={headerOpacity} />
-                </Animated.View>
-
-                <Animated.View style={[styles.nav, { transform: [{ translateY: navTranslate }] }]}>
-                    <TabNavigator tabClicked={this.props.tabClicked} currentTab={this.props.tab} />
-                </Animated.View>
-
-                <Animated.View style={[styles.bar]}>
+            <View style={styles.container}>
+                <View style={styles.toolbar}>
                     <Toolbar />
-                </Animated.View>
+                </View>
+                <View style={styles.header}>{this.renderHeader()}</View>
+                <View style={styles.tabNav}>
+                    <TabNavigator tabClicked={this.props.tabClicked} currentTab={this.props.tab} />
+                </View>
+                <View style={styles.screenView}>{this.renderTab()}</View>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    fill: {
-        flex: 1,
-        backgroundColor: 'rgba(236, 235, 243, 1)'
+    container: {
+        flex: 8
     },
-    scrollView: {
-        backgroundColor: 'rgba(236, 235, 243, 1)',
-        top: NAV_HEIGHT + HEADER_MIN_HEIGHT + HEADER_MAX_HEIGHT
+    toolbar: {
+        flex: 0.8
     },
     header: {
-        position: 'absolute',
-        //flex: 1,
-        top: HEADER_MIN_HEIGHT,
-        left: 0,
-        right: 0,
-        backgroundColor: 'rgba(25,52,116,1)',
-        overflow: 'hidden',
-        height: HEADER_MAX_HEIGHT
+        flex: 1.5
     },
-    nav: {
-        position: 'absolute',
-        top: HEADER_MIN_HEIGHT + HEADER_MAX_HEIGHT,
-        backgroundColor: 'green',
-        left: 0,
-        right: 0,
-        width: null,
-        height: NAV_HEIGHT
+    tabNav: {
+        flex: 0.7
     },
-    bar: {
-        backgroundColor: 'rgba(5, 122, 34, 1)',
-        height: HEADER_MIN_HEIGHT,
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0
+    screenView: {
+        flex: 7
     }
 });
 
 const mapStateToProps = state => ({
-    tab: state.toolbar.tab
+    tab: state.toolbar.tab,
+    coords: state.location.coords,
+    deltas: state.location.deltas,
+    hotSpotClicked: state.location.hotSpotClicked,
+    trailsClicked: state.location.trailsClicked,
+    activitiesClicked: state.location.activitiesClicked,
+    facilitiesClicked: state.location.facilitiesClicked
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateUtils: utils => dispatch(updateUtils(utils)),
         tabClicked: tab => dispatch(tabClicked(tab))
     };
 };

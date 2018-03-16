@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
+import { connect } from 'react-redux';
 
 class Map extends Component {
     constructor(props) {
@@ -12,18 +13,17 @@ class Map extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image
-                    key={0}
-                    resizeMode={'contain'}
-                    style={{
-                        height: 500,
-                        width: 500
+                <MapView
+                    style={styles.map}
+                    region={{
+                        latitude: this.props.coords.latitude,
+                        longitude: this.props.coords.longitude,
+                        latitudeDelta: this.props.deltas.latitudeDelta,
+                        longitudeDelta: this.props.deltas.longitudeDelta
                     }}
-                    source={require('../img/map.jpg')}
-                />
-                <View key={1} style={{ height: 225 }}>
-                    <Text>Footer</Text>
-                </View>
+                >
+                    <MapView.Marker coordinate={this.props.coords} title={'title'} description={'description'} />
+                </MapView>
             </View>
         );
     }
@@ -31,11 +31,26 @@ class Map extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: 'rgba(236, 235, 243, 1)',
-        alignItems: 'center',
-        justifyContent: 'center'
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    map: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
     }
 });
 
-export default Map;
+const mapStateToProps = (state, props) => ({
+    coords: props.coords,
+    deltas: props.deltas
+});
+
+export default connect(mapStateToProps)(Map);

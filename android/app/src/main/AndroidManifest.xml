@@ -5,7 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="22" />
@@ -18,7 +19,7 @@
       android:theme="@style/AppTheme">
       <meta-data
           android:name="com.google.android.geo.API_KEY"
-          android:value="AIzaSyDKoXtjHY3i_3zvLX0PbGRT5JRoeyXp_0k"/>
+          android:value="AIzaSyBAVvVrhyqXEAofAH-e29OUaB8XjIWxC2A"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

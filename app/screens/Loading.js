@@ -4,7 +4,7 @@ import { StyleSheet, View, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { updateUtils } from '../actions/utils';
+import { initPosition } from '../actions/location';
 
 class Loading extends Component {
     static propTypes = {
@@ -15,10 +15,18 @@ class Loading extends Component {
         super(props);
     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.props.navigation.navigate('HomeScreen');
-        }, 1000);
+    async componentDidMount() {
+        await navigator.geolocation.getCurrentPosition(
+            position => {
+                this.props.initPosition({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+                this.props.navigation.navigate('HomeScreen');
+            },
+            error => {
+                console.log('there was an error getting location');
+                this.props.navigation.navigate('HomeScreen');
+            },
+            { enableHighAccuracy: true }
+        );
     }
 
     render() {
@@ -46,7 +54,7 @@ const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateUtils: utils => dispatch(updateUtils(utils))
+        initPosition: coords => dispatch(initPosition(coords))
     };
 };
 

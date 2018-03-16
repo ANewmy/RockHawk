@@ -37,7 +37,23 @@ class Home extends Component {
     }
 
     render() {
-        return <View />;
+        return (
+            <View style={styles.container}>
+                <View style={styles.bodyView}>
+                    <Text style={styles.titleText}>Rock Hawk: The Outdoor Classroom</Text>
+                    <Text />
+                    <Text style={styles.bodyText}>
+                        Rock Hawk is an outdoor classroom that has hundreds of educational displays along the 25 miles
+                        of trails that surround and lead to the ancient effigy The displays along the trail and wetlands
+                        and the indoor and outdoor interpretive centers near the effigy cover a wide variety of flora
+                        and fauna as well as 12,000 years of the area’s history, including a history of Putnam County’s
+                        unique large effigies, old cemeteries, home sites, quarries and more.
+                        {'\n\n'} Recreational opportunities include: camping, boating, fishing, archery (3-D & static
+                        plus limited hunting), beach, hiking & biking, and nature watching.
+                    </Text>
+                </View>
+            </View>
+        );
     }
 }
 

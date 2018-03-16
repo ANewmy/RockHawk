@@ -14,45 +14,6 @@ class TabNavigator extends Component {
     componentWillReceiveProps(next) {
         console.log(next);
     }
-    /*
-    {this.props.params.available_firmware == null &&
-    this.props.params.has_default_credentials == false ? (
-        <Text style={styles.statusText}>Secure</Text>
-    ) : (
-        <Text style={styles.statusText}>Alerts</Text>
-    )}
-
-    <View style={styles.mapView}>
-        <TouchableOpacity
-            onPress={() => {
-                this.props.tabClicked('Map');
-            }}
-            style={styles.buttonFormat}
-        >
-            <Text style={styles.mapText}>Map</Text>
-        </TouchableOpacity>
-    </View>
-    <View style={styles.feedbackView}>
-        <TouchableOpacity
-            onPress={() => {
-                this.props.tabClicked('Feedback');
-            }}
-            style={styles.buttonFormat}
-        >
-            <Text style={styles.feedbackText}>Feedback</Text>
-        </TouchableOpacity>
-    </View>
-    <View style={styles.donationsView}>
-        <TouchableOpacity
-            onPress={() => {
-                this.props.tabClicked('Donations');
-            }}
-            style={styles.buttonFormat}
-        >
-            <Text style={styles.donationsText}>Donations</Text>
-        </TouchableOpacity>
-    </View>
-    */
 
     render() {
         return (
