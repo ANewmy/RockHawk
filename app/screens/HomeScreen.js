@@ -44,10 +44,7 @@ class HomeScreen extends Component {
 
     constructor(props) {
         super(props);
-        console.log('HomeScreen props: ,', props);
     }
-
-    componentDidMount() {}
 
     renderHeader() {
         if (this.props.tab == 'Map') {

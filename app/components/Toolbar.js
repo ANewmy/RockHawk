@@ -10,6 +10,7 @@ class Toolbar extends Component {
         super(props);
     }
 
+    //Displays the toolbar at the top of the screen
     render() {
         return (
             <View style={styles.container}>

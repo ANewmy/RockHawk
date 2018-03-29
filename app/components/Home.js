@@ -19,11 +19,8 @@ class Home extends Component {
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        var { height, width } = Dimensions.get('window');
-        console.log('he: ', height);
+
         this.state = {
-            height: height,
-            width: width,
             ds: [
                 {
                     title: 'Rock Hawk: The Outdoor Classroom',
@@ -58,7 +55,6 @@ class Home extends Component {
     }
 
     renderRow(data) {
-        //console.log('data', data);
         return (
             <View style={styles.row}>
                 <Text style={styles.titleText}>{data.title}</Text>
@@ -66,15 +62,14 @@ class Home extends Component {
             </View>
         );
     }
+
+    //Navigates to the rockhawk homepage
     click() {
-        console.log('Cliked');
         Linking.openURL('http://rockhawk.org/')
-            .then(url => {
-                console.log('url: ', url);
-            })
+            .then(url => {})
             .catch(err => console.error('An error occurred', err));
     }
-    //{{flex: 1, backgroundColor: 'lightgrey', flexDirection: 'row' }
+
     render() {
         var scrollY = new Animated.Value(0);
 
@@ -161,8 +156,8 @@ const styles = StyleSheet.create({
     bodyText: {
         flex: 1,
         fontSize: 14,
-        marginTop: 5,
-        marginBottom: 5,
+        margin: 5,
+        padding: 3,
         color: 'black',
         fontFamily: 'Avenir-light'
     },
@@ -197,6 +192,7 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 18,
         color: 'darkblue',
+        padding: 5,
         fontFamily: 'Avenir-Heavy'
     },
     row: {

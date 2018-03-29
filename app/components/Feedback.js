@@ -48,6 +48,7 @@ class Feedback extends Component {
             dataSource: ds.cloneWithRows(['row 1', 'row 2'])
         };
     }
+
     componentDidMount() {
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(this.state.ds)
@@ -55,10 +56,10 @@ class Feedback extends Component {
     }
 
     onStarRatingPress(rating) {
-        console.log('rating: ', rating);
         this.setState({
             rating: rating
         });
+
         switch (rating) {
             case 1:
                 this.setState({
@@ -90,6 +91,7 @@ class Feedback extends Component {
         }
     }
 
+    //sumbit the user data to the server
     submit() {
         //const url = 'http://192.168.1.79:8000/polls/feedback/';
         const url = 'http://127.0.0.1:8000/polls/feedback/';

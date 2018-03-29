@@ -7,13 +7,6 @@ class TabNavigator extends Component {
     constructor(props) {
         super(props);
     }
-    componentDidMount() {
-        console.log('props: ', this.props);
-    }
-
-    componentWillReceiveProps(next) {
-        console.log(next);
-    }
 
     render() {
         return (
@@ -137,14 +130,10 @@ const styles = StyleSheet.create({
         borderRightWidth: 0,
         borderLeftWidth: 0,
         borderBottomWidth: 0
-
-        //alignItems: 'center',
-        //justifyContent: 'center'
     },
     homeText: {
         fontSize: 12,
         fontFamily: 'Avenir-Roman',
-        //color: 'rgba(20,41,83,1)'
         color: 'white'
     },
     mapView: {
@@ -157,7 +146,6 @@ const styles = StyleSheet.create({
     mapText: {
         fontSize: 12,
         fontFamily: 'Avenir-Roman',
-        //color: 'rgba(20,41,83,1)'
         color: 'white'
     },
     feedbackView: {
@@ -170,7 +158,6 @@ const styles = StyleSheet.create({
     feedbackText: {
         fontSize: 12,
         fontFamily: 'Avenir-Roman',
-        //color: 'rgba(20,41,83,1)'
         color: 'white'
     },
     donationsView: {
@@ -182,7 +169,6 @@ const styles = StyleSheet.create({
     donationsText: {
         fontSize: 12,
         fontFamily: 'Avenir-Roman',
-        //color: 'rgba(20,41,83,1)'
         color: 'white'
     }
 });

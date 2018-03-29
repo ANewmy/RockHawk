@@ -8,6 +8,7 @@ class LogoHeader extends Component {
         super(props);
     }
 
+    //Simple component for the logo in the header
     render() {
         return (
             <View style={styles.container}>

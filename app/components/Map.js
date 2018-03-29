@@ -9,7 +9,7 @@ import { Icon } from 'react-native-elements';
 class Map extends Component {
     constructor(props) {
         super(props);
-        console.log('Map props: ', props);
+        //Should be replaced by data from servers
         this.state = {
             hotSpots: [
                 {
@@ -162,12 +162,7 @@ class Map extends Component {
 
         this.state.trails.map((obj, index) => {
             trails.push(
-                <MapView.Polyline
-                    coordinates={obj.coordinate}
-                    strokeColor="#fff" // fallback for when `strokeColors` is not supported by the map-provider
-                    strokeWidth={5}
-                    key={index}
-                />
+                <MapView.Polyline coordinates={obj.coordinate} strokeColor="#fff" strokeWidth={5} key={index} />
             );
         });
 
@@ -176,6 +171,7 @@ class Map extends Component {
         }
     }
 
+    //Displays the MapView container, calls individual render methods to show which markers to display
     render() {
         return (
             <View style={styles.container}>

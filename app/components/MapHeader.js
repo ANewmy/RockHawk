@@ -17,6 +17,7 @@ class MapHeader extends Component {
     constructor(props) {
         super(props);
     }
+
     renderHotSpot() {
         if (this.props.hotSpotClicked) {
             return (
@@ -50,7 +51,6 @@ class MapHeader extends Component {
     }
 
     renderTrails() {
-        console.log(this.props.trailsClicked);
         if (this.props.trailsClicked) {
             return (
                 <TouchableOpacity
@@ -170,6 +170,7 @@ class MapHeader extends Component {
         }
     }
 
+    //Renders the map toolbar when user clicks a button
     render() {
         return (
             <View style={styles.container}>

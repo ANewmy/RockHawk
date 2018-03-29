@@ -8,6 +8,7 @@ class Donations extends Component {
         super(props);
     }
 
+    //Loads the donations page from rockhawk.org in a webview
     render() {
         return (
             <View style={styles.container}>
@@ -28,39 +29,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center'
-    },
-    leftView: {
-        flex: 1,
-        marginTop: 15,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    leftText: {
-        fontSize: 12,
-        fontFamily: 'Avenir-Roman',
-        color: 'white'
-    },
-    middleView: {
-        flex: 1,
-        marginTop: 15,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    rightView: {
-        flex: 1,
-        marginTop: 15,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    rightText: {
-        fontSize: 12,
-        fontFamily: 'Avenir-Roman',
-        color: 'white'
-    },
-    titleText: {
-        fontSize: 18,
-        color: 'white',
-        fontFamily: 'Avenir-Heavy'
     }
 });
 

@@ -22,7 +22,6 @@ class Loading extends Component {
                 this.props.navigation.navigate('HomeScreen');
             },
             error => {
-                console.log('there was an error getting location');
                 this.props.navigation.navigate('HomeScreen');
             },
             { enableHighAccuracy: true }
