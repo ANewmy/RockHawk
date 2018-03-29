@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
+
 import {
     increaseMapSize,
     decreaseMapSize,
@@ -145,13 +146,7 @@ class MapHeader extends Component {
                     style={styles.trailsClicked}
                 >
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
-                        <Icon
-                            name="details"
-                            type="MaterialCommunityIcons"
-                            color="black"
-                            underlayColor="grey"
-                            size={22}
-                        />
+                        <Icon name="place" type="MaterialIcons" color="black" underlayColor="grey" size={22} />
                     </View>
                     <View style={styles.controlTextView}>
                         <Text style={styles.optionText}>Facilities</Text>
@@ -165,16 +160,10 @@ class MapHeader extends Component {
                     style={styles.trails}
                 >
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
-                        <Icon
-                            name="details"
-                            type="MaterialCommunityIcons"
-                            color="black"
-                            underlayColor="grey"
-                            size={22}
-                        />
+                        <Icon name="place" type="MaterialIcons" color="black" underlayColor="grey" size={22} />
                     </View>
                     <View style={styles.controlTextView}>
-                        <Text style={styles.optionText}>facilities</Text>
+                        <Text style={styles.optionText}>Facilities</Text>
                     </View>
                 </TouchableOpacity>
             );
