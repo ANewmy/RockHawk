@@ -13,8 +13,7 @@ class Donations extends Component {
             <View style={styles.container}>
                 <WebView
                     source={{
-                        uri:
-                            'https://www.paypal.com/donate/?token=LNuc-ILC62c6IQipYsHcX5o6oRv54CVwMnD7edk5q0jAS15XInjYh0FjN51cuC5bABkxGW&country.x=US&locale.x=US&Z3JncnB0='
+                        uri: 'http://rockhawk.org/donate/'
                     }}
                     style={{ height: 800 }}
                 />
