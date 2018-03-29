@@ -44,6 +44,7 @@ class HomeScreen extends Component {
 
     constructor(props) {
         super(props);
+        console.log('HomeScreen props: ,', props);
     }
 
     componentDidMount() {}
@@ -70,7 +71,16 @@ class HomeScreen extends Component {
                 return <Home />;
                 break;
             case 'Map':
-                return <Map coords={this.props.coords} deltas={this.props.deltas} />;
+                return (
+                    <Map
+                        coords={this.props.coords}
+                        deltas={this.props.deltas}
+                        hotSpotClicked={this.props.hotSpotClicked}
+                        trailsClicked={this.props.trailsClicked}
+                        activitiesClicked={this.props.activitiesClicked}
+                        facilitiesClicked={this.props.facilitiesClicked}
+                    />
+                );
                 break;
             case 'Feedback':
                 return <Feedback />;
