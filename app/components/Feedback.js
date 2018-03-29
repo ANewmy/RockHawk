@@ -124,7 +124,6 @@ class Feedback extends Component {
     }
 
     renderRow(data) {
-        //console.log('data', data);
         return (
             <View style={styles.row}>
                 <Text style={styles.contactTitleText}>{data.title}</Text>
@@ -135,15 +134,7 @@ class Feedback extends Component {
             </View>
         );
     }
-    /*
-<Text style={styles.contactTitleText}>Eatonton-Putnam Chamber of Commerce</Text>
 
-<Text style={styles.contactSubText}>
-	Physical Address: 305 North Madison Avenue Eatonton, GA 31024 Mailing Address PO Box 4088
-	Eatonton, GA 31024 info@eatonton.com
-</Text>
-<Text style={styles.contactSubText}>info@eatonton.com</Text>
-*/
     render() {
         return (
             <View style={styles.container}>
