@@ -11,8 +11,8 @@ import {
 const initialState = {
     coords: {},
     deltas: {
-        latitudeDelta: 0.0083,
-        longitudeDelta: 0.0074
+        latitudeDelta: 0.00103,
+        longitudeDelta: 0.0094
     },
     hotSpotClicked: false,
     trailsClicked: false,
