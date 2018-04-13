@@ -1,11 +1,12 @@
 import {
     INIT_POSITION,
-    INCREASE_MAP_SIZE,
-    DECREASE_MAP_SIZE,
-    HOT_SPOT_CLICKED,
     TRAILS_CLICKED,
+    HOT_SPOT_CLICKED,
     ACTIVITIES_CLICKED,
-    FACILITIES_CLICKED
+    FACILITIES_CLICKED,
+    SAVE_LOCATION_DATA,
+    UPDATE_LOCATION_LIST,
+    HOT_SPOT_ENTERED
 } from '../actions/location';
 
 const initialState = {
@@ -17,7 +18,10 @@ const initialState = {
     hotSpotClicked: false,
     trailsClicked: false,
     activitiesClicked: false,
-    facilitiesClicked: false
+    facilitiesClicked: false,
+    locationData: [],
+    locationList: new Array(),
+    currentHotSpot: null
 };
 
 export default (state = initialState, action) => {
@@ -30,24 +34,18 @@ export default (state = initialState, action) => {
 
             break;
 
-        case INCREASE_MAP_SIZE:
+        case HOT_SPOT_ENTERED:
             return {
                 ...state,
-                deltas: {
-                    latitudeDelta: state.deltas.latitudeDelta + 0.0015,
-                    longitudeDelta: state.deltas.longitudeDelta + 0.0015
-                }
+                currentHotSpot: action.location
             };
 
             break;
 
-        case DECREASE_MAP_SIZE:
+        case SAVE_LOCATION_DATA:
             return {
                 ...state,
-                deltas: {
-                    latitudeDelta: state.deltas.latitudeDelta - 0.0015,
-                    longitudeDelta: state.deltas.longitudeDelta - 0.0015
-                }
+                locationData: action.locationData
             };
 
             break;
@@ -80,6 +78,14 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 facilitiesClicked: action.bool
+            };
+
+            break;
+
+        case UPDATE_LOCATION_LIST:
+            return {
+                ...state,
+                locationList: state.locationList.concat(action.location)
             };
 
             break;
