@@ -1,21 +1,18 @@
 // @flow
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-import {
-    increaseMapSize,
-    decreaseMapSize,
-    hotSpotClicked,
-    trailsClicked,
-    activitiesClicked,
-    facilitiesClicked
-} from '../actions/location';
+import { hotSpotClicked, trailsClicked, activitiesClicked, facilitiesClicked } from '../actions/location';
 
 class MapHeader extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            infoView: false
+        };
     }
 
     renderHotSpot() {
@@ -170,38 +167,114 @@ class MapHeader extends Component {
         }
     }
 
-    //Renders the map toolbar when user clicks a button
-    render() {
+    renderCurrentHotSpot() {
+        if (this.props.currentHotSpot != null) {
+            return (
+                <TouchableOpacity onPress={() => this.setState({ infoView: true })} style={styles.currentHotSpot}>
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
+                        <Icon name="priority-high" type="MaterialIcons" color="black" underlayColor="grey" size={22} />
+                    </View>
+                    <View style={styles.controlTextView}>
+                        <Text style={styles.optionText}>Info</Text>
+                    </View>
+                </TouchableOpacity>
+            );
+        } else {
+            return null;
+        }
+    }
+
+    renderInfoView() {
         return (
-            <View style={styles.container}>
-                <View style={styles.middlePanel}>
-                    {this.renderFacilities()}
-                    {this.renderActivities()}
-                    {this.renderTrails()}
-                    {this.renderHotSpot()}
-                </View>
-
-                <View style={styles.rightPanel}>
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.dispatch(decreaseMapSize())}
-                        style={styles.upIcon}
-                    >
-                        <View style={styles.icon}>
-                            <Icon name="ios-add" type="ionicon" color="black" underlayColor="grey" size={32} />
+            <View style={styles.middlePanelInfo}>
+                <TouchableOpacity onPress={() => this.setState({ infoView: false })} style={styles.infoBack}>
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                        <Icon name="chevron-left" type="MaterialIcons" color="black" underlayColor="grey" size={32} />
+                    </View>
+                </TouchableOpacity>
+                <View style={{ flex: 6 }}>
+                    <ScrollView>
+                        <Text
+                            key={0}
+                            style={{
+                                fontSize: 22,
+                                color: 'darkblue',
+                                fontFamily: 'Avenir-Heavy',
+                                marginTop: 5,
+                                marginLeft: 10,
+                                marginBottom: 5
+                            }}
+                        >
+                            Location: {this.props.currentHotSpot.name}
+                        </Text>
+                        <Text
+                            key={1}
+                            style={{
+                                fontSize: 12,
+                                color: 'darkblue',
+                                fontFamily: 'Avenir-light',
+                                marginLeft: 10
+                            }}
+                        >
+                            Latitude: {this.props.currentHotSpot.latitude}
+                        </Text>
+                        <Text
+                            key={2}
+                            style={{
+                                fontSize: 12,
+                                color: 'darkblue',
+                                fontFamily: 'Avenir-light',
+                                marginLeft: 10
+                            }}
+                        >
+                            Longitude: {this.props.currentHotSpot.longitude}
+                        </Text>
+                        <View
+                            key={3}
+                            style={{
+                                borderColor: 'grey',
+                                borderWidth: StyleSheet.hairlineWidth,
+                                flex: 1,
+                                borderRadius: 6,
+                                marginTop: 5,
+                                marginBottom: 5,
+                                marginRight: 10
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    color: 'darkblue',
+                                    fontFamily: 'Avenir-light',
+                                    margin: 10
+                                }}
+                            >
+                                {this.props.currentHotSpot.trailInfo}
+                            </Text>
                         </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.dispatch(increaseMapSize())}
-                        style={styles.downIcon}
-                    >
-                        <View style={styles.icon}>
-                            <Icon name="ios-remove" type="ionicon" color="black" underlayColor="grey" size={32} />
-                        </View>
-                    </TouchableOpacity>
+                    </ScrollView>
                 </View>
             </View>
         );
+    }
+
+    //Renders the map toolbar when user clicks a button
+    render() {
+        if (this.state.infoView) {
+            return <View style={styles.container}>{this.renderInfoView()}</View>;
+        } else {
+            return (
+                <View style={styles.container}>
+                    <View style={styles.middlePanel}>
+                        {this.renderFacilities()}
+                        {this.renderActivities()}
+                        {this.renderTrails()}
+                        {this.renderHotSpot()}
+                        {this.renderCurrentHotSpot()}
+                    </View>
+                </View>
+            );
+        }
     }
 }
 
@@ -250,6 +323,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 5
     },
+    middlePanelInfo: {
+        flex: 6,
+        flexDirection: 'row',
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: 'grey'
+        //    backgroundColor: 'grey'
+    },
     hotSpots: {
         flex: 1,
         margin: 5,
@@ -286,6 +366,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 5
     },
+    infoBack: {
+        flex: 1,
+        margin: 5,
+        marginTop: 25,
+        marginBottom: 25,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     hotSpots1: {
         flex: 1,
         margin: 5,
@@ -308,6 +396,18 @@ const styles = StyleSheet.create({
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: 'grey',
         backgroundColor: 'grey',
+        borderRadius: 5
+    },
+    currentHotSpot: {
+        flex: 1,
+        margin: 5,
+        marginTop: 15,
+        marginBottom: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: 'grey',
+        backgroundColor: 'red',
         borderRadius: 5
     },
     controlTextView: { flex: 1, marginTop: 10 }

@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, ListView, Picker, TouchableOpacity } from 'react-native';
+import { defaults } from '../config/defaults';
 import StarRating from 'react-native-star-rating';
 
 class Feedback extends Component {
@@ -93,19 +94,17 @@ class Feedback extends Component {
 
     //sumbit the user data to the server
     submit() {
-        //const url = 'http://192.168.1.79:8000/polls/feedback/';
-        const url = 'http://127.0.0.1:8000/polls/feedback/';
-
         var fetchBody = JSON.stringify({
             timestamp: '2012-09-04 06:00:00',
             satisfactory_level: this.state.rating,
             comments: this.state.comments
         });
 
-        console.log('Submit clicked.. fetching data: ', url, fetchBody);
-
-        fetch(url, {
+        console.log('Submit clicked.. fetching datssa: ', fetchBody);
+        this.setState({ rating: 3, ratingText: 'Average', comments: '' });
+        fetch(defaults.feedbackAPI, {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
@@ -115,7 +114,7 @@ class Feedback extends Component {
             .then(response => {
                 console.log('resposnse: ', response);
 
-                return response.json();
+                return response.text();
             })
             .then(responseJson => {
                 console.log('responseJSON: ', responseJson);
