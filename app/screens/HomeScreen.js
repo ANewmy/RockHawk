@@ -39,7 +39,10 @@ class HomeScreen extends Component {
         hotSpotClicked: PropTypes.bool,
         trailsClicked: PropTypes.bool,
         activitiesClicked: PropTypes.bool,
-        facilitiesClicked: PropTypes.bool
+        facilitiesClicked: PropTypes.bool,
+        locationList: PropTypes.array,
+        currentHotSpot: PropTypes.object,
+        locationData: PropTypes.array
     };
 
     constructor(props) {
@@ -55,6 +58,7 @@ class HomeScreen extends Component {
                     trailsClicked={this.props.trailsClicked}
                     activitiesClicked={this.props.activitiesClicked}
                     facilitiesClicked={this.props.facilitiesClicked}
+                    currentHotSpot={this.props.currentHotSpot}
                 />
             );
         } else {
@@ -76,6 +80,8 @@ class HomeScreen extends Component {
                         trailsClicked={this.props.trailsClicked}
                         activitiesClicked={this.props.activitiesClicked}
                         facilitiesClicked={this.props.facilitiesClicked}
+                        locationList={this.props.locationList}
+                        locationData={this.props.locationData}
                     />
                 );
                 break;
@@ -132,7 +138,10 @@ const mapStateToProps = state => ({
     hotSpotClicked: state.location.hotSpotClicked,
     trailsClicked: state.location.trailsClicked,
     activitiesClicked: state.location.activitiesClicked,
-    facilitiesClicked: state.location.facilitiesClicked
+    facilitiesClicked: state.location.facilitiesClicked,
+    locationList: state.location.locationList,
+    currentHotSpot: state.location.currentHotSpot,
+    locationData: state.location.locationData
 });
 
 const mapDispatchToProps = dispatch => {
