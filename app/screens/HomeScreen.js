@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 //Import actions
 import { updateUtils } from '../actions/location';
 import { tabClicked } from '../actions/toolbar';
+import { feedbackSubmittedClicked, saveUserInfo } from '../actions/feedback';
 
 //import components
 import TabNavigator from '../components/TabNavigator';
@@ -42,7 +43,10 @@ class HomeScreen extends Component {
         facilitiesClicked: PropTypes.bool,
         locationList: PropTypes.array,
         currentHotSpot: PropTypes.object,
-        locationData: PropTypes.array
+        locationData: PropTypes.array,
+        feedbackSubmitted: PropTypes.bool,
+        trailData: PropTypes.array,
+        userInfo: PropTypes.object,
     };
 
     constructor(props) {
@@ -82,11 +86,19 @@ class HomeScreen extends Component {
                         facilitiesClicked={this.props.facilitiesClicked}
                         locationList={this.props.locationList}
                         locationData={this.props.locationData}
+                        trailData={this.props.trailData}
                     />
                 );
                 break;
             case 'Feedback':
-                return <Feedback />;
+                return (
+                    <Feedback
+                        feedbackSubmittedClicked={this.props.feedbackSubmittedClicked}
+                        feedbackSubmitted={this.props.feedbackSubmitted}
+                        userInfo={this.props.userInfo}
+                        saveUserInfo={this.props.saveUserInfo}
+                    />
+                );
                 break;
             case 'Donations':
                 return <Donations />;
@@ -101,7 +113,7 @@ class HomeScreen extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.toolbar}>
-                    <Toolbar />
+                    <Toolbar navigation={this.props.navigation} />
                 </View>
                 <View style={styles.header}>{this.renderHeader()}</View>
                 <View style={styles.tabNav}>
@@ -115,20 +127,20 @@ class HomeScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 8
+        flex: 8,
     },
     toolbar: {
-        flex: 0.8
+        flex: 0.8,
     },
     header: {
-        flex: 1.5
+        flex: 1.5,
     },
     tabNav: {
-        flex: 0.7
+        flex: 0.7,
     },
     screenView: {
-        flex: 7
-    }
+        flex: 7,
+    },
 });
 
 const mapStateToProps = state => ({
@@ -141,12 +153,17 @@ const mapStateToProps = state => ({
     facilitiesClicked: state.location.facilitiesClicked,
     locationList: state.location.locationList,
     currentHotSpot: state.location.currentHotSpot,
-    locationData: state.location.locationData
+    locationData: state.location.locationData,
+    feedbackSubmitted: state.feedback.feedbackSubmitted,
+    trailData: state.location.trailData,
+    userInfo: state.feedback.userInfo,
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        tabClicked: tab => dispatch(tabClicked(tab))
+        tabClicked: tab => dispatch(tabClicked(tab)),
+        feedbackSubmittedClicked: () => dispatch(feedbackSubmittedClicked()),
+        saveUserInfo: userInfo => dispatch(saveUserInfo(userInfo)),
     };
 };
 

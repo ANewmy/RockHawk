@@ -1,90 +1,56 @@
-// @flow
-
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, ListView, Picker, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ListView, Picker, ScrollView, TouchableOpacity } from 'react-native';
 import { defaults } from '../config/defaults';
 import StarRating from 'react-native-star-rating';
 
 class Feedback extends Component {
     constructor(props) {
         super(props);
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-
+        console.log('props', props);
         this.state = {
             comments: '',
             rating: 3,
+            email: '',
+            phoneNumber: '',
+            name: '',
             ratingText: 'Average',
-            ds: [
-                {
-                    title: 'Eatonton-Putnam Chamber of Commerce',
-                    website: 'http://www.visiteatonton.com',
-                    phone: '706-485-7701',
-                    address:
-                        '305 North Madison Avenue Eatonton, GA 31024 Mailing Address PO Box 4088' +
-                        'Eatonton, GA 31024',
-                    email: 'info@eatonton.com'
-                },
-                {
-                    title: 'Georgia Power',
-                    website: 'http://www.georgiapower.com/lakes/home.asp',
-                    phone: '888-472-5253',
-                    address: null,
-                    email: null
-                },
-                {
-                    title: 'Georgia Dept. of Natural Resources, Wildlife Division',
-                    website: 'http://www.georgiawildlife.com/',
-                    phone: null,
-                    address: null,
-                    email: null
-                },
-                {
-                    title: 'Historic Piedmont Scenic Byway',
-                    website: 'http://scenicbyway.org/',
-                    phone: '706-485-7701',
-                    address: null,
-                    email: null
-                }
-            ],
-            dataSource: ds.cloneWithRows(['row 1', 'row 2'])
+            alertMessage: '',
+            submits: 0,
+            submitClicked: this.props.feedbackSubmitted,
+            userInfo: this.props.userInfo,
         };
     }
 
-    componentDidMount() {
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(this.state.ds)
-        });
-    }
-
+    //Sets the text for amount of stars
     onStarRatingPress(rating) {
         this.setState({
-            rating: rating
+            rating: rating,
         });
 
         switch (rating) {
             case 1:
                 this.setState({
-                    ratingText: 'Terrible'
+                    ratingText: 'Terrible',
                 });
                 break;
             case 2:
                 this.setState({
-                    ratingText: 'Poor'
+                    ratingText: 'Poor',
                 });
                 break;
             case 3:
                 this.setState({
-                    ratingText: 'Average'
+                    ratingText: 'Average',
                 });
                 break;
             case 4:
                 this.setState({
-                    ratingText: 'Great'
+                    ratingText: 'Great',
                 });
                 break;
             case 5:
                 this.setState({
-                    ratingText: 'Excelent'
+                    ratingText: 'Excelent',
                 });
                 break;
             default:
@@ -92,208 +58,340 @@ class Feedback extends Component {
         }
     }
 
-    //sumbit the user data to the server
+    //Post the user data to the server
     submit() {
-        var fetchBody = JSON.stringify({
-            timestamp: '2012-09-04 06:00:00',
-            satisfactory_level: this.state.rating,
-            comments: this.state.comments
-        });
+        if (this.state.comments == '') {
+            this.setState({ alertMessage: 'Comment field is required' });
+        } else {
+            var submits = this.state.submits;
+            submits++;
 
-        console.log('Submit clicked.. fetching datssa: ', fetchBody);
-        this.setState({ rating: 3, ratingText: 'Average', comments: '' });
-        fetch(defaults.feedbackAPI, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: fetchBody
-        })
-            .then(response => {
-                console.log('resposnse: ', response);
+            var userInfo = { name: 'Name', email: 'Email', phoneNumber: 'Phone Number' };
+            if (this.state.name != '') {
+                userInfo.name = this.state.name;
+                this.setState({ name: this.state.name });
+            }
+            if (this.state.email != '') {
+                userInfo.email = this.state.email;
+                this.setState({ email: this.state.email });
+            }
+            if (this.state.phoneNumber != '') {
+                userInfo.phoneNumber = this.state.phoneNumber;
+                this.setState({ phoneNumber: this.state.phoneNumber });
+            }
 
-                return response.text();
-            })
-            .then(responseJson => {
-                console.log('responseJSON: ', responseJson);
-            })
-            .catch(error => {
-                console.log('error: ', error);
+            this.setState({ submitClicked: true, submits: submits, userInfo: userInfo });
+
+            this.props.saveUserInfo(userInfo);
+            var newDate = new Date();
+            this.props.feedbackSubmittedClicked();
+
+            var fetchBody = JSON.stringify({
+                //timestamp: '2012-09-04 06:00:00',
+                timestamp: newDate.toISOString(),
+                satisfactory_level: this.state.rating,
+                comments: this.state.comments,
+                name: this.state.name,
+                email: this.state.email,
+                phone_number: this.state.phoneNumber,
             });
+
+            //set the state back to default
+            this.setState({ rating: 3, ratingText: 'Average', comments: '' });
+
+            fetch(defaults.feedbackAPI, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: fetchBody,
+            })
+                .then(response => {
+                    return response.text();
+                })
+                .then(responseJson => {
+                    console.log('feedback.submit.response: ', responseJson);
+                })
+                .catch(error => {
+                    console.log('feedback.submit.error: ', error);
+                });
+        }
     }
 
-    renderRow(data) {
+    renderSecondSubmit() {
+        if (this.state.submits == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    renderSecondSubmitColor() {
+        if (this.state.submits == 0) {
+            return 'rgba(0,0,0,.5)';
+        } else {
+            return 'rgba(0,0,0,1)';
+        }
+    }
+
+    //Renders the feedback form. Push individual Views onto the results array in order so that we can use the array to create a scrollable view for the feedback form
+    renderFeedbackForm() {
+        var result = [];
+
+        result.push(
+            <View key={0} style={styles.inputTitleRow}>
+                <View style={styles.titleView}>
+                    <Text style={styles.titleText}>Feedback</Text>
+                </View>
+            </View>,
+        );
+
+        result.push(
+            <View key={1} style={styles.inputRow}>
+                <View style={styles.starView}>
+                    <Text
+                        style={{
+                            fontSize: 13,
+                            marginTop: 5,
+                            alignSelf: 'center',
+                            fontFamily: 'Avenir-Roman',
+                            color: 'black',
+                        }}
+                    >
+                        {this.state.ratingText}
+                    </Text>
+
+                    <StarRating
+                        disabled={false}
+                        fullStarColor="gold"
+                        emptyStarColor="black"
+                        starSize={25}
+                        buttonStyle={{ padding: 5 }}
+                        starPadding={10}
+                        maxStars={5}
+                        rating={this.state.rating}
+                        selectedStar={rating => this.onStarRatingPress(rating)}
+                    />
+                </View>
+            </View>,
+        );
+
+        result.push(
+            <View key={2} style={styles.inputRow}>
+                <TextInput
+                    style={styles.commentInput}
+                    multiline={false}
+                    editable={this.renderSecondSubmit()}
+                    numberOfLines={1}
+                    placeholder={this.state.userInfo.name}
+                    onChangeText={name => this.setState({ name: name })}
+                    placeholderTextColor={this.renderSecondSubmitColor()}
+                />
+            </View>,
+        );
+
+        result.push(
+            <View key={3} style={styles.inputRow}>
+                <TextInput
+                    style={styles.commentInput}
+                    multiline={false}
+                    numberOfLines={1}
+                    editable={this.renderSecondSubmit()}
+                    keyboardType={'numeric'}
+                    autoCapitalize="none"
+                    placeholder={this.state.userInfo.phoneNumber}
+                    onChangeText={phoneNumber => this.setState({ phoneNumber: phoneNumber })}
+                    placeholderTextColor={this.renderSecondSubmitColor()}
+                />
+            </View>,
+        );
+
+        result.push(
+            <View key={4} style={styles.inputRow}>
+                <TextInput
+                    style={styles.commentInput}
+                    multiline={false}
+                    editable={this.renderSecondSubmit()}
+                    numberOfLines={1}
+                    keyboardType={'email-address'}
+                    autoCapitalize="none"
+                    placeholder={this.state.userInfo.email}
+                    onChangeText={email => this.setState({ email: email })}
+                    placeholderTextColor={this.renderSecondSubmitColor()}
+                />
+            </View>,
+        );
+
+        result.push(
+            <View key={5} style={styles.inputCommentRow}>
+                <TextInput
+                    style={styles.commentInput}
+                    multiline={true}
+                    numberOfLines={6}
+                    autoCapitalize="none"
+                    placeholder="Leave your comments here"
+                    onChangeText={comments => this.setState({ comments: comments })}
+                    placeholderTextColor="rgba(0,0,0,.5)"
+                />
+            </View>,
+        );
+
+        result.push(
+            <View key={6} style={styles.inputRow}>
+                <Text style={{ color: 'darkred', alignSelf: 'center', fontFamily: 'Avenir-light', fontSize: 12 }}>
+                    {this.state.alertMessage}
+                </Text>
+                <View style={styles.submitView}>
+                    <View style={{ flex: 1 }} />
+
+                    <TouchableOpacity style={styles.submit} onPress={() => this.submit()}>
+                        <Text style={styles.submitText}>Submit</Text>
+                    </TouchableOpacity>
+
+                    <View style={{ flex: 1 }} />
+                </View>
+            </View>,
+        );
+
         return (
-            <View style={styles.row}>
-                <Text style={styles.contactTitleText}>{data.title}</Text>
-                <Text style={styles.contactSubText}>{data.website}</Text>
-                <Text style={styles.contactSubText}>{data.phone}</Text>
-                <Text style={styles.contactSubText}>{data.address}</Text>
-                <Text style={styles.contactSubLastText}>{data.email}</Text>
+            <View style={styles.inputView}>
+                <ScrollView>{result}</ScrollView>
             </View>
         );
+    }
+
+    leaveAnother() {
+        var submits = this.state.submits;
+        submits++;
+        this.setState({ submitClicked: false, submits: submits });
     }
 
     render() {
-        return (
-            <View style={styles.container}>
-                <View style={styles.contactView}>
-                    <View style={styles.titleTextView}>
-                        <Text style={styles.titleText}>Contact Us</Text>
-                    </View>
-                    <View style={styles.contactContentView}>
-                        <ListView
-                            style={styles.container}
-                            dataSource={this.state.dataSource}
-                            renderRow={data => this.renderRow(data)}
-                        />
-                    </View>
-                </View>
-
-                <View style={styles.inputView}>
-                    <View style={styles.titleView}>
-                        <Text style={styles.titleText}>Feedback</Text>
-                    </View>
-                    <View style={styles.starView}>
-                        <Text
-                            style={{
-                                fontSize: 13,
-                                marginTop: 5,
-                                alignSelf: 'center',
-                                fontFamily: 'Avenir-Roman',
-                                color: 'black'
-                            }}
-                        >
-                            {this.state.ratingText}
-                        </Text>
-                        <StarRating
-                            disabled={false}
-                            fullStarColor="gold"
-                            emptyStarColor="black"
-                            starSize={25}
-                            buttonStyle={{ padding: 5 }}
-                            starPadding={10}
-                            maxStars={5}
-                            rating={this.state.rating}
-                            selectedStar={rating => this.onStarRatingPress(rating)}
-                        />
-                    </View>
-
-                    <TextInput
-                        style={styles.commentInput}
-                        multiline={true}
-                        numberOfLines={6}
-                        autoCapitalize="none"
-                        placeholder="Leave your comments here"
-                        onChangeText={comments => this.setState({ comments: comments })}
-                        placeholderTextColor="rgba(0,0,0,.5)"
-                    />
-
-                    <View style={styles.submitView}>
-                        <View style={{ flex: 1 }} />
-                        <TouchableOpacity style={styles.submit} onPress={() => this.submit()}>
-                            <Text style={styles.submitText}>Submit</Text>
-                        </TouchableOpacity>
-                        <View style={{ flex: 1 }} />
+        if (this.state.submitClicked) {
+            return (
+                <View style={styles.container}>
+                    <View style={styles.inputViewSubmitted}>
+                        <View style={{ flex: 1, paddingBottom: 15, alignItems: 'center', justifyContent: 'flex-end' }}>
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    color: 'blue',
+                                    fontFamily: 'Avenir-Heavy',
+                                }}
+                            >
+                                Thank you for your response!
+                            </Text>
+                        </View>
+                        <View style={{ flex: 1, paddingTop: 15, alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    this.leaveAnother();
+                                }}
+                                style={styles.leaveAnother}
+                            >
+                                <Text style={styles.submitText}>Leave Another</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
-        );
+            );
+        } else {
+            return <View style={styles.container}>{this.renderFeedbackForm()}</View>;
+        }
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 10,
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     submit: {
         flex: 1,
-        margin: 12,
+        margin: 8,
         borderRadius: 6,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'blue'
+        backgroundColor: 'blue',
+    },
+    leaveAnother: {
+        borderRadius: 6,
+        height: 40,
+        width: 120,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'blue',
     },
     submitText: {
         fontSize: 14,
         color: 'white',
-        fontFamily: 'Avenir-Heavy'
+        fontFamily: 'Avenir-Heavy',
     },
     starView: {
         flex: 0.8,
+        paddingTop: 15,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
-    contactView: {
-        margin: 15,
-        flex: 5.5,
-        backgroundColor: 'rgba(255,255,255,.7)',
-        borderColor: 'grey',
-        borderRadius: 5,
-        borderWidth: StyleSheet.hairlineWidth
-    },
+
     inputView: {
         margin: 15,
-        marginTop: 0,
-        flex: 4.5,
+        flex: 6,
         backgroundColor: 'rgba(255,255,255,.7)',
         borderColor: 'grey',
         borderRadius: 5,
-        borderWidth: StyleSheet.hairlineWidth
+        borderWidth: StyleSheet.hairlineWidth,
+    },
+    inputViewSubmitted: {
+        margin: 15,
+        flex: 6,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(255,255,255,.7)',
+        borderColor: 'grey',
+        borderRadius: 5,
+        borderWidth: StyleSheet.hairlineWidth,
     },
     commentInput: {
         flex: 1,
         marginRight: 15,
-        marginLeft: 15
+        marginLeft: 15,
+    },
+    inputRow: {
+        height: 60,
+    },
+    inputTitleRow: {
+        height: 34,
+    },
+    inputCommentRow: {
+        height: 70,
     },
     submitView: {
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
-
     titleText: {
         flex: 1,
         marginLeft: 15,
         marginTop: 5,
         fontSize: 18,
         fontFamily: 'Avenir-Heavy',
-        color: 'black'
+        color: 'black',
     },
-    contactTitleText: {
-        marginLeft: 15,
-        fontSize: 14,
-        marginBottom: 5,
-        marginTop: 5,
-        fontFamily: 'Avenir-Heavy',
-        color: 'darkblue'
-    },
-    contactSubText: {
-        marginLeft: 25,
-        fontSize: 12,
-        marginBottom: 2,
-        fontFamily: 'Avenir-Roman',
-        color: 'black'
-    },
-    contactSubLastText: {
-        marginLeft: 25,
-        fontSize: 12,
-        marginBottom: 2,
-        fontFamily: 'Avenir-Roman',
-        color: 'black'
+    titleView: {
+        flex: 1,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderColor: 'lightgrey',
+        justifyContent: 'center',
     },
     titleTextView: {
-        flex: 0.2
-    },
-    row: {
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: 'lightgrey'
+        flex: 0.2,
     },
     contactContentView: {
-        flex: 1
-    }
+        flex: 1,
+    },
 });
 
 export default Feedback;

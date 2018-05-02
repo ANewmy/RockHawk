@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -46,6 +47,7 @@
 		C8FAB721159940BAA02DA5DE /* libRNNetworkInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 857C60B8E86145EE8D5FAE51 /* libRNNetworkInfo.a */; };
 		CC8CE88C083C4064950BBEB8 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B5516EA1EA74490A773989C /* libRNDeviceInfo.a */; };
 		D9A7E6B3F5EF40219FA16605 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4FE140898FB4445B33A3A47 /* EvilIcons.ttf */; };
+		E3FB5CA63D7FBC97A7501281 /* libPods-RockHawk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 789298669B65CCDE17821722 /* libPods-RockHawk.a */; };
 		E95BD6AF7ADA4DF4BEB29FB4 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097865C69D459DB5067833 /* libRNVectorIcons.a */; };
 		F570F1CF1A934DCAB32E24A6 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA554FC44A143BB9A3E92F9 /* Entypo.ttf */; };
 		F73424F24273453B950F5E98 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7325FA7C253143148D734E99 /* Octicons.ttf */; };
@@ -317,11 +319,13 @@
 		2B097865C69D459DB5067833 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* RockHawk-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RockHawk-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* RockHawk-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RockHawk-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2ED856368A42F6884781AF54 /* Pods-RockHawk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockHawk.release.xcconfig"; path = "Pods/Target Support Files/Pods-RockHawk/Pods-RockHawk.release.xcconfig"; sourceTree = "<group>"; };
 		518E37CBCCDC4FF7B3862B2E /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		5C95FBDDE4BA4A6FA45981A5 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		7325FA7C253143148D734E99 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		77DD50FC798E4995A53A2A53 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		789298669B65CCDE17821722 /* libPods-RockHawk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RockHawk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7BF3E85FE5854791A95971D4 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -333,6 +337,7 @@
 		C9E8CACEE4E44BA79FF44D78 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		D705A6D738D14CDE93E55E47 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		F45ABC70183B49FE903901E5 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		F4BF4B01ED19C8133FF270AC /* Pods-RockHawk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockHawk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RockHawk/Pods-RockHawk.debug.xcconfig"; sourceTree = "<group>"; };
 		F4FE140898FB4445B33A3A47 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -363,6 +368,7 @@
 				CC8CE88C083C4064950BBEB8 /* libRNDeviceInfo.a in Frameworks */,
 				C8FAB721159940BAA02DA5DE /* libRNNetworkInfo.a in Frameworks */,
 				E95BD6AF7ADA4DF4BEB29FB4 /* libRNVectorIcons.a in Frameworks */,
+				E3FB5CA63D7FBC97A7501281 /* libPods-RockHawk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +598,8 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				DF8E60D263A94041B3F60071 /* Resources */,
 				4936AA012057264E001AF30E /* Recovered References */,
+				B78D7D7C3E7EFAC4C883D2BD /* Pods */,
+				C083E24E983B5BBE982147E4 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -606,6 +614,23 @@
 				2D02E4901E0B4A5D006451C7 /* RockHawk-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B78D7D7C3E7EFAC4C883D2BD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F4BF4B01ED19C8133FF270AC /* Pods-RockHawk.debug.xcconfig */,
+				2ED856368A42F6884781AF54 /* Pods-RockHawk.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C083E24E983B5BBE982147E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				789298669B65CCDE17821722 /* libPods-RockHawk.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		DF8E60D263A94041B3F60071 /* Resources */ = {
@@ -651,10 +676,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RockHawk" */;
 			buildPhases = (
+				9853969CBB9F8DBE343753F7 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				092381FE04CC1968F9E74618 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1091,6 +1118,24 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		092381FE04CC1968F9E74618 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-RockHawk/Pods-RockHawk-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RockHawk/Pods-RockHawk-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1104,6 +1149,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		9853969CBB9F8DBE343753F7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RockHawk-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1233,6 +1296,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4BF4B01ED19C8133FF270AC /* Pods-RockHawk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1257,6 +1321,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2ED856368A42F6884781AF54 /* Pods-RockHawk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;

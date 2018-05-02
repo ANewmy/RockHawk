@@ -10,19 +10,35 @@ class Toolbar extends Component {
         super(props);
     }
 
+    nav() {
+        console.log('nav', this.props);
+
+        this.props.navigation.navigate('Help');
+    }
+
     //Displays the toolbar at the top of the screen
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.leftView}>
+                <TouchableOpacity
+                    onPress={() => {
+                        this.props.navigation.navigate('Help');
+                    }}
+                    style={styles.leftView}
+                >
                     <Text style={styles.leftText}>Help</Text>
-                </View>
+                </TouchableOpacity>
                 <View style={styles.middleView}>
                     <Text style={styles.titleText}>Rock Hawk</Text>
                 </View>
-                <View style={styles.rightView}>
-                    <Icon name="ios-settings-outline" color="white" size={20} type="ionicon" />
-                </View>
+                <TouchableOpacity
+                    onPress={() => {
+                        this.props.navigation.navigate('Contact');
+                    }}
+                    style={styles.rightView}
+                >
+                    <Icon name="md-contact" color="white" size={20} type="ionicon" />
+                </TouchableOpacity>
             </View>
         );
     }
@@ -34,43 +50,43 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
-        backgroundColor: 'rgba(5, 122, 34,1)'
+        backgroundColor: 'rgba(5, 122, 34,1)',
     },
     leftView: {
         flex: 1,
         marginTop: 10,
         marginRight: 15,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     leftText: {
         fontSize: 12,
         fontFamily: 'Avenir-Roman',
-        color: 'white'
+        color: 'white',
     },
     middleView: {
         flex: 1,
         marginTop: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     rightView: {
         flex: 1,
         marginTop: 10,
         marginLeft: 15,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     rightText: {
         fontSize: 12,
         fontFamily: 'Avenir-Roman',
-        color: 'white'
+        color: 'white',
     },
     titleText: {
         fontSize: 18,
         color: 'white',
-        fontFamily: 'Avenir-Heavy'
-    }
+        fontFamily: 'Avenir-Heavy',
+    },
 });
 
 export default Toolbar;

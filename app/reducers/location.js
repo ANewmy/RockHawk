@@ -5,23 +5,25 @@ import {
     ACTIVITIES_CLICKED,
     FACILITIES_CLICKED,
     SAVE_LOCATION_DATA,
+    SAVE_TRAIL_DATA,
     UPDATE_LOCATION_LIST,
-    HOT_SPOT_ENTERED
+    HOT_SPOT_ENTERED,
 } from '../actions/location';
 
 const initialState = {
     coords: {},
     deltas: {
         latitudeDelta: 0.00103,
-        longitudeDelta: 0.0094
+        longitudeDelta: 0.0094,
     },
     hotSpotClicked: false,
     trailsClicked: false,
     activitiesClicked: false,
     facilitiesClicked: false,
     locationData: [],
+    trailData: [],
     locationList: new Array(),
-    currentHotSpot: null
+    currentHotSpot: null,
 };
 
 export default (state = initialState, action) => {
@@ -29,7 +31,7 @@ export default (state = initialState, action) => {
         case INIT_POSITION:
             return {
                 ...state,
-                coords: action.coords
+                coords: action.coords,
             };
 
             break;
@@ -37,7 +39,7 @@ export default (state = initialState, action) => {
         case HOT_SPOT_ENTERED:
             return {
                 ...state,
-                currentHotSpot: action.location
+                currentHotSpot: action.location,
             };
 
             break;
@@ -45,7 +47,15 @@ export default (state = initialState, action) => {
         case SAVE_LOCATION_DATA:
             return {
                 ...state,
-                locationData: action.locationData
+                locationData: action.locationData,
+            };
+
+            break;
+
+        case SAVE_TRAIL_DATA:
+            return {
+                ...state,
+                trailData: action.trailData,
             };
 
             break;
@@ -53,7 +63,7 @@ export default (state = initialState, action) => {
         case HOT_SPOT_CLICKED:
             return {
                 ...state,
-                hotSpotClicked: action.bool
+                hotSpotClicked: action.bool,
             };
 
             break;
@@ -61,7 +71,7 @@ export default (state = initialState, action) => {
         case TRAILS_CLICKED:
             return {
                 ...state,
-                trailsClicked: action.bool
+                trailsClicked: action.bool,
             };
 
             break;
@@ -69,7 +79,7 @@ export default (state = initialState, action) => {
         case ACTIVITIES_CLICKED:
             return {
                 ...state,
-                activitiesClicked: action.bool
+                activitiesClicked: action.bool,
             };
 
             break;
@@ -77,7 +87,7 @@ export default (state = initialState, action) => {
         case FACILITIES_CLICKED:
             return {
                 ...state,
-                facilitiesClicked: action.bool
+                facilitiesClicked: action.bool,
             };
 
             break;
@@ -85,7 +95,7 @@ export default (state = initialState, action) => {
         case UPDATE_LOCATION_LIST:
             return {
                 ...state,
-                locationList: state.locationList.concat(action.location)
+                locationList: state.locationList.concat(action.location),
             };
 
             break;

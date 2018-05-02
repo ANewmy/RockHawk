@@ -11,7 +11,7 @@ import {
     TouchableOpacity,
     ScrollView,
     ListView,
-    Animated
+    Animated,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 
@@ -30,27 +30,27 @@ class Home extends Component {
                         'history, including a history of Putnam County’s unique large effigies, old cemeteries, home' +
                         'sites, quarries and more. \n\n' +
                         'Recreational opportunities include: camping, boating, fishing, archery (3-D & static plus' +
-                        'limited hunting), beach, hiking & biking, and nature watching.\n'
+                        'limited hunting), beach, hiking & biking, and nature watching.\n',
                 },
                 {
                     title: 'History of Rock Hawk Effigy',
                     text:
                         'The Rock Hawk Effigy is located near the Historic Piedmont Scenic Byway (Georgia Highway 16), which was once the Okfuskee Trail. The prehistoric trail was a major “highway” through the Southeast that ultimately connected Charleston, SC with the Mississippi River. \n\n' +
-                        'It is not known who built the Rock Hawk Effigy, nor exactly when or why. Most of what we know comes from the limited research that has been conducted on the mounds and from speculation. \n\nThe effigy was located on land occupied by Native Americans before early settlers took ownership via treaties and land grants shortly after 1800. The effigy consists of milky quartz rocks and is in the shape of a hawk. Some of the rocks are so large that some archaeologists believe they were dragged there with the use of deerskins. The Hawk appears to be flying southeast.\n'
+                        'It is not known who built the Rock Hawk Effigy, nor exactly when or why. Most of what we know comes from the limited research that has been conducted on the mounds and from speculation. \n\nThe effigy was located on land occupied by Native Americans before early settlers took ownership via treaties and land grants shortly after 1800. The effigy consists of milky quartz rocks and is in the shape of a hawk. Some of the rocks are so large that some archaeologists believe they were dragged there with the use of deerskins. The Hawk appears to be flying southeast.\n',
                 },
                 {
                     title: 'Little Family Cemeteries',
                     text:
-                        'The site contains two cemeteries. The smallest contains the graves of the early Little and Stinson families with more than 20 burials, is along the Rock Hawk Trail, and can be seen from the park road. \n\nThe second cemetery, also along the Rock Hawk Trail, which has more than 100 graves, was probably a slave cemetery originally and later included burials not only of Little family members but also of other area residents as well.\n'
-                }
+                        'The site contains two cemeteries. The smallest contains the graves of the early Little and Stinson families with more than 20 burials, is along the Rock Hawk Trail, and can be seen from the park road. \n\nThe second cemetery, also along the Rock Hawk Trail, which has more than 100 graves, was probably a slave cemetery originally and later included burials not only of Little family members but also of other area residents as well.\n',
+                },
             ],
-            dataSource: ds.cloneWithRows(['row 1', 'row 2'])
+            dataSource: ds.cloneWithRows(['row 1', 'row 2']),
         };
     }
 
     componentDidMount() {
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(this.state.ds)
+            dataSource: this.state.dataSource.cloneWithRows(this.state.ds),
         });
     }
 
@@ -65,7 +65,7 @@ class Home extends Component {
 
     //Navigates to the rockhawk homepage
     click() {
-        Linking.openURL('http://rockhawk.org/')
+        Linking.openURL('https://rockhawk.org/')
             .then(url => {})
             .catch(err => console.error('An error occurred', err));
     }
@@ -76,7 +76,7 @@ class Home extends Component {
         const headerTranslate = scrollY.interpolate({
             inputRange: [0, 100],
             outputRange: [0, -44],
-            extrapolate: 'clamp'
+            extrapolate: 'clamp',
         });
 
         return (
@@ -89,9 +89,9 @@ class Home extends Component {
                             bottom: -44,
                             left: 0,
                             zIndex: 10,
-                            right: 0
+                            right: 0,
                         },
-                        { transform: [{ translateY: headerTranslate }] }
+                        { transform: [{ translateY: headerTranslate }] },
                     ]}
                 >
                     <TouchableOpacity
@@ -115,8 +115,9 @@ class Home extends Component {
                     </TouchableOpacity>
                 </Animated.View>
                 <Animated.ScrollView
+                    scrollEventThrottle={16}
                     onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
-                        useNativeDriver: true
+                        useNativeDriver: true,
                     })}
                 >
                     <View style={styles.bodyView}>
@@ -135,23 +136,23 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 10
+        flex: 10,
     },
     listView: {
         flex: 1,
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     container1: {
         flex: 1,
         backgroundColor: '#f4f7f9',
-        paddingTop: 30
+        paddingTop: 30,
     },
     bodyView: {
         flex: 9,
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
-        padding: 5
+        padding: 5,
     },
     bodyText: {
         flex: 1,
@@ -159,46 +160,46 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 3,
         color: 'black',
-        fontFamily: 'Avenir-light'
+        fontFamily: 'Avenir-light',
     },
     leftView: {
         flex: 1,
         marginTop: 15,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     leftText: {
         fontSize: 12,
         fontFamily: 'Avenir-Roman',
-        color: 'white'
+        color: 'white',
     },
     middleView: {
         flex: 1,
         marginTop: 15,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     rightView: {
         flex: 1,
         marginTop: 15,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     rightText: {
         fontSize: 12,
         fontFamily: 'Avenir-Roman',
-        color: 'white'
+        color: 'white',
     },
     titleText: {
         fontSize: 18,
         color: 'darkblue',
         padding: 5,
-        fontFamily: 'Avenir-Heavy'
+        fontFamily: 'Avenir-Heavy',
     },
     row: {
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: 'lightgrey'
-    }
+        borderColor: 'lightgrey',
+    },
 });
 
 export default Home;
