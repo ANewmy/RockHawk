@@ -33,7 +33,6 @@ export default class AppProvider extends Component {
         let p = persistStore(store, { storage: AsyncStorage, blacklist: ['nav'] }, () => {
             this.setState({ rehydrated: true });
         });
-        //p.purge();
     }
 
     render() {

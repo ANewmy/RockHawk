@@ -6,7 +6,7 @@
 * node v8.4.0 or higher.
 
 ### After installing node:
-1. Clone repo using git on local machine.
+1. Download or Clone repo using git on local machine.
 2. Run
 ```
 npm install
