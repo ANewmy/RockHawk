@@ -7,7 +7,7 @@
 
 ### After installing node:
 1. Download or Clone repo using git on local machine.
-2. Run
+2. Using the terminal, navigate to the root project folder and run:
 ```
 npm install
 ```
