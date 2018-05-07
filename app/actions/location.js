@@ -17,6 +17,8 @@ export const SAVE_LOCATION_DATA = 'SAVE_LOCATION_DATA';
 export const SAVE_TRAIL_DATA = 'SAVE_TRAIL_DATA';
 export const UPDATE_LOCATION_LIST = 'UPDATE_LOCATION_LIST';
 export const HOT_SPOT_ENTERED = 'HOT_SPOT_ENTERED';
+export const INFO_CLICKED = 'INFO_CLICKED';
+export const CLOSE_INFO = 'CLOSE_INFO';
 
 import { defaults } from '../config/defaults';
 
@@ -34,6 +36,15 @@ export const saveLocationData = locationData => ({
 export const saveTrailData = trailData => ({
     type: SAVE_TRAIL_DATA,
     trailData: trailData,
+});
+
+export const infoClicked = infoObj => ({
+    type: INFO_CLICKED,
+    infoObj: infoObj,
+});
+
+export const closeInfo = () => ({
+    type: CLOSE_INFO,
 });
 
 export const updateLocationList = location => ({

@@ -12,13 +12,13 @@ const App = ({ dispatch, nav }) => (
     <Navigator
         navigation={addNavigationHelpers({
             dispatch,
-            state: nav
+            state: nav,
         })}
     />
 );
 
 const mapStateToProps = state => ({
-    nav: state.nav
+    nav: state.nav,
 });
 
 const AppWithNavigation = connect(mapStateToProps)(App);
@@ -33,7 +33,7 @@ export default class AppProvider extends Component {
         let p = persistStore(store, { storage: AsyncStorage, blacklist: ['nav'] }, () => {
             this.setState({ rehydrated: true });
         });
-        p.purge();
+        //p.purge();
     }
 
     render() {

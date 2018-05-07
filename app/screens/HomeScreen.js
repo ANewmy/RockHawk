@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 //Import actions
-import { updateUtils } from '../actions/location';
+import { updateUtils, infoClicked, closeInfo } from '../actions/location';
 import { tabClicked } from '../actions/toolbar';
 import { feedbackSubmittedClicked, saveUserInfo } from '../actions/feedback';
 
@@ -47,6 +47,7 @@ class HomeScreen extends Component {
         feedbackSubmitted: PropTypes.bool,
         trailData: PropTypes.array,
         userInfo: PropTypes.object,
+        infoObj: PropTypes.object,
     };
 
     constructor(props) {
@@ -63,6 +64,7 @@ class HomeScreen extends Component {
                     activitiesClicked={this.props.activitiesClicked}
                     facilitiesClicked={this.props.facilitiesClicked}
                     currentHotSpot={this.props.currentHotSpot}
+                    infoClicked={this.props.infoClicked}
                 />
             );
         } else {
@@ -87,6 +89,9 @@ class HomeScreen extends Component {
                         locationList={this.props.locationList}
                         locationData={this.props.locationData}
                         trailData={this.props.trailData}
+                        infoObj={this.props.infoObj}
+                        infoClicked={this.props.infoClicked}
+                        close={this.props.closeInfo}
                     />
                 );
                 break;
@@ -157,13 +162,16 @@ const mapStateToProps = state => ({
     feedbackSubmitted: state.feedback.feedbackSubmitted,
     trailData: state.location.trailData,
     userInfo: state.feedback.userInfo,
+    infoObj: state.location.infoObj,
 });
 
 const mapDispatchToProps = dispatch => {
     return {
         tabClicked: tab => dispatch(tabClicked(tab)),
         feedbackSubmittedClicked: () => dispatch(feedbackSubmittedClicked()),
+        closeInfo: () => dispatch(closeInfo()),
         saveUserInfo: userInfo => dispatch(saveUserInfo(userInfo)),
+        infoClicked: infoObj => dispatch(infoClicked(infoObj)),
     };
 };
 

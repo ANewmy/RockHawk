@@ -11,8 +11,7 @@ class Toolbar extends Component {
     }
 
     nav() {
-        console.log('nav', this.props);
-
+        //Navigate to the help screen when the help button is clicked
         this.props.navigation.navigate('Help');
     }
 

@@ -171,7 +171,12 @@ class MapHeader extends Component {
     renderCurrentHotSpot() {
         if (this.props.currentHotSpot != null) {
             return (
-                <TouchableOpacity onPress={() => this.setState({ infoView: true })} style={styles.currentHotSpot}>
+                <TouchableOpacity
+                    onPress={() => {
+                        this.props.infoClicked(this.props.currentHotSpot);
+                    }}
+                    style={styles.currentHotSpot}
+                >
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
                         <Icon name="priority-high" type="MaterialIcons" color="black" underlayColor="grey" size={22} />
                     </View>
@@ -187,7 +192,7 @@ class MapHeader extends Component {
 
     renderInfoView() {
         if (this.state.infoView) {
-            return <HotspotInfo close={this.closeCallback.bind(this)} hotSpot={this.props.currentHotSpot} />;
+            this.props.infoClicked(this.props.currentHotSpot);
         }
     }
 
@@ -199,7 +204,6 @@ class MapHeader extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {this.renderInfoView()}
                 <View style={styles.middlePanel}>
                     {this.renderFacilities()}
                     {this.renderActivities()}

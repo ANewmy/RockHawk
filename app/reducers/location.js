@@ -8,18 +8,21 @@ import {
     SAVE_TRAIL_DATA,
     UPDATE_LOCATION_LIST,
     HOT_SPOT_ENTERED,
+    INFO_CLICKED,
+    CLOSE_INFO,
 } from '../actions/location';
 
 const initialState = {
     coords: {},
     deltas: {
-        latitudeDelta: 0.00103,
-        longitudeDelta: 0.0094,
+        latitudeDelta: 0.00211,
+        longitudeDelta: 0.0211,
     },
     hotSpotClicked: false,
     trailsClicked: false,
     activitiesClicked: false,
     facilitiesClicked: false,
+    infoObj: null,
     locationData: [],
     trailData: [],
     locationList: new Array(),
@@ -40,6 +43,22 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 currentHotSpot: action.location,
+            };
+
+            break;
+
+        case INFO_CLICKED:
+            return {
+                ...state,
+                infoObj: action.infoObj,
+            };
+
+            break;
+
+        case CLOSE_INFO:
+            return {
+                ...state,
+                infoObj: null,
             };
 
             break;

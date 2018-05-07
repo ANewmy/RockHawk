@@ -23,6 +23,7 @@ import geolib from 'geolib';
 //Import custom files we created
 import { defaults } from '../config/defaults';
 import { updateVisitorCount, hotSpotEntered } from '../actions/location';
+import HotspotInfo from '../components/HotspotInfo';
 
 class Map extends Component {
     constructor(props) {
@@ -43,7 +44,6 @@ class Map extends Component {
 
     //If the server responded with data, set the data to the state. If not, the state will continue to use the data stored in config/defaults.js
     componentWillMount() {
-        console.log('state', this.state.currentLocation);
         if (this.props.locationData.length > 0) {
             this.setState({ locationData: this.props.locationData });
         }
@@ -65,7 +65,6 @@ class Map extends Component {
         //Starts to watch the users position, stops on componentWillUnmount().
         this.watchID = navigator.geolocation.watchPosition(position => {
             this.setState({ currentLocation: { longitude: position.longitude, latitude: position.latitude } });
-            console.log('cur ', this.state.currentLocation);
         });
 
         //Start the checkForHotspot() method. This will periodically check to see if the users location is inside the radius of a hotspot.
@@ -186,7 +185,7 @@ class Map extends Component {
                         description={obj.hotspot_info}
                         key={index}
                     >
-                        <Icon name="place" type="MaterialIcons" color="black" underlayColor="grey" size={30} />
+                        <Icon name="place" type="MaterialIcons" color="white" underlayColor="grey" size={30} />
                     </MapView.Marker>,
                 );
             }
@@ -198,9 +197,33 @@ class Map extends Component {
         }
     }
 
-    trailClicked(obj) {
-        console.log('clicked trail', obj);
-        //this.setState({ showTrailInfo: true });
+    renderTrailColor(obj) {
+        switch (obj.trail_color) {
+            case 0:
+                return defaults.TRAIL_0;
+                break;
+            case 1:
+                return defaults.TRAIL_1;
+                break;
+
+            case 2:
+                return defaults.TRAIL_2;
+                break;
+
+            case 3:
+                return defaults.TRAIL_3;
+                break;
+            case 4:
+                return defaults.TRAIL_4;
+                break;
+
+            case 5:
+                return defaults.TRAIL_5;
+                break;
+
+            default:
+                break;
+        }
     }
 
     renderTrails() {
@@ -222,8 +245,8 @@ class Map extends Component {
                         this.trailClicked(obj);
                     }}
                     coordinates={coordinates}
-                    strokeColor="red"
-                    strokeWidth={2}
+                    strokeColor={this.renderTrailColor(obj)}
+                    strokeWidth={5}
                     key={index}
                 />,
             );
@@ -235,13 +258,16 @@ class Map extends Component {
         }
     }
 
-    renderTrailInfo() {
-        //return <HotspotInfo
+    renderInfoView() {
+        if (this.props.infoObj != null) {
+            return <HotspotInfo close={this.props.close} hotSpot={this.props.infoObj} />;
+        } else {
+            return null;
+        }
     }
 
     //Displays the MapView container, calls individual render methods to show which markers to display
     render() {
-        console.log('loc dat: ', this.state.locationData);
         return (
             <View style={styles.container}>
                 <MapView
@@ -267,6 +293,7 @@ class Map extends Component {
                     {this.renderFacilities()}
                     {this.renderTrails()}
                 </MapView>
+                {this.renderInfoView()}
             </View>
         );
     }

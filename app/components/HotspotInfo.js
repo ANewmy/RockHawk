@@ -8,7 +8,7 @@ import { defaults } from '../config/defaults';
 class HotspotInfo extends Component {
     constructor(props) {
         super(props);
-
+        console.log('dims: ', props);
         var url = defaults.imageAPI + props.hotSpot.picture;
 
         this.state = {
